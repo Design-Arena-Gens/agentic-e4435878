@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instant Image Converter | Offline Client-Side Tool</title>
+  <meta name="description" content="Convert images between JPG, PNG, WEBP, BMP, ICO, and HEIC instantly in your browser. No uploads, 100% offline.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ad ad-top">Ad Space</div>
+  <main class="app-shell">
+    <section class="card">
+      <header class="card__header">
+        <h1>Instant Image Converter</h1>
+        <p>Convert your images entirely in the browser — no uploads, no waiting.</p>
+      </header>
+      <section class="upload-area" id="drop-zone">
+        <input type="file" id="file-input" accept="image/*" hidden>
+        <div class="upload-area__content">
+          <div class="upload-area__icon" aria-hidden="true">📁</div>
+          <p class="upload-area__title">Drag &amp; drop images here</p>
+          <p class="upload-area__subtitle">or</p>
+          <button type="button" class="btn btn-secondary" id="select-button">Select File</button>
+          <p class="upload-area__formats">Supported: JPG, JPEG, PNG, WEBP, BMP, ICO, HEIC</p>
+        </div>
+      </section>
+
+      <section class="preview" id="preview" hidden>
+        <div class="preview__image-wrapper">
+          <img id="preview-image" alt="Uploaded preview">
+        </div>
+        <div class="preview__details">
+          <p id="preview-name" class="preview__name"></p>
+          <p id="preview-size" class="preview__size"></p>
+        </div>
+      </section>
+
+      <section class="controls" aria-live="polite">
+        <label for="format-select" class="controls__label">Convert to</label>
+        <select id="format-select" class="controls__select">
+          <option value="png">PNG</option>
+          <option value="jpg">JPG</option>
+          <option value="jpeg">JPEG</option>
+          <option value="webp">WEBP</option>
+          <option value="bmp">BMP</option>
+          <option value="ico">ICO</option>
+          <option value="heic">HEIC</option>
+        </select>
+        <div class="progress" id="progress" hidden>
+          <div class="progress__bar" id="progress-bar"></div>
+        </div>
+        <div class="controls__actions">
+          <button type="button" class="btn btn-primary" id="convert-button" disabled>Convert</button>
+          <button type="button" class="btn btn-outline" id="download-button" disabled>Download</button>
+        </div>
+      </section>
+    </section>
+  </main>
+  <div class="ad ad-bottom">Ad Space</div>
+  <footer class="footer">
+    <nav class="footer__links">
+      <span>About</span>
+      <span>Privacy</span>
+      <span>Contact</span>
+    </nav>
+    <p>&copy; <span id="year"></span> Instant Image Converter</p>
+  </footer>
+  <div class="toast-container" id="toast-container" aria-live="assertive" aria-atomic="true"></div>
+  <script type="module" src="script.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
